@@ -1,23 +1,11 @@
-pipeline {
-    agent any
-    options {
-        skipStagesAfterUnstable()
+stage('Deploy - Staging') {
+    steps {
+        sh './deploy_staging.sh'
+        sh './run-smoke-tests.sh'
     }
-    stages {
-        stage('Build') {
-            steps {
-                echo 'Building'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying'
-            }
-        }
+}
+stage('Deploy - Production') {
+    steps {
+        sh './deploy_production.sh'
     }
 }
